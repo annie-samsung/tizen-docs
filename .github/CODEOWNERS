@@ -1,8 +1,27 @@
-# This is a comment.
-# Each line is a file pattern followed by one or more owners.
+name: Linting
+on: [push]
 
-# These owners will be the default owners for everything in
-# the repo. Unless a later match takes precedence,
-# @global-owner1 and @global-owner2 will be requested for
-# review when someone opens a pull request.
-* @journey2w @mijin85cho @annie-samsung
+jobs:
+  prose:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Vale
+      uses: errata-ai/vale-action@v1.4.0
+      with:
+        # Optional
+        styles: |
+          https://github.com/errata-ai/Microsoft/releases/latest/download/Microsoft.zip
+          https://github.com/errata-ai/write-good/releases/latest/download/write-good.zip
+
+        # Optional
+        config: https://raw.githubusercontent.com/errata-ai/vale/master/.vale.ini
+
+        # Optional
+        files: path/to/lint
+      env:
+        # Required
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
