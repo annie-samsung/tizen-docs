@@ -15,9 +15,9 @@ There are three Text components to display and edit text on the screen:
 <a name="textLabel"></a>
 ## TextLabel
 
-[TextLabel](https://samsung.github.io/TizenFX/latest/api/Tizen.NUI.BaseComponents.TextLabel.html) is a class that displays a short text string. The `Tizen.NUI.BaseComponents` namespace contains the class.
+[TextLabel](/application/dotnet/api/TizenFX/latest/api/Tizen.NUI.BaseComponents.TextLabel.html) is a class that displays a short text string. The `Tizen.NUI.BaseComponents` namespace contains the class.
 
-The `TextLabel` class is lightweight, non-editable, and do not respond to user input. Text labels support multiple languages and scripts including right-to-left scripts such as Arabic. For more information on how to display a text using a text label, see [NUI Hello World Tutorial](../../get-started/nui/quickstart.md).
+The `TextLabel` class is lightweight, non-editable, and do not respond to user input. Text labels support multiple languages and scripts including right-to-left scripts such as Arabic. For more information on how to display a text using a text label, see [NUI Hello World Tutorial](../../get-started/nui/first-app.md).
 
 **Figure: Text label positioned to top left**
 
@@ -54,7 +54,7 @@ To create a text label:
     ```
 
 <a name="font"></a>
-### Set Font of TextLabel
+### Set font of TextLabel
 
 You can request a specific font using the `FontFamily`, the `FontStyle`, and the `PointSize` properties of the `TextLabel` class:
 
@@ -97,7 +97,7 @@ Window.Instance.Add(label);
 
 If no font is specified, default styles are used, and a suitable font for displaying the text label is automatically selected from the platform. However, the automatically-selected font may not render all the characters contained within the text label. For example, Latin fonts often do not provide Arabic glyphs.
 
-### Set Font Styles of TextLabel
+### Set font styles of TextLabel
 
 Setting a font size programmatically is not ideal for applications that support multiple screen resolutions, and for platforms that support multiple logical font sizes. In addition, making systemwide changes to your font settings override the font sizes that have been programmatically set.
 
@@ -120,7 +120,7 @@ A more flexible approach is to prepare various JSON stylesheets and request a di
 }
 ```
 
-[StyleManager](https://samsung.github.io/TizenFX/latest/api/Tizen.NUI.StyleManager.html) provides the `ApplyTheme` method, where path to stylesheet is passed. Since stylesheet is loaded, `CustomLabel` style can be used on the created label by using the `SetStyleName` method of `TextLabel`:
+[StyleManager](/application/dotnet/api/TizenFX/latest/api/Tizen.NUI.StyleManager.html) provides the `ApplyTheme` method, where path to stylesheet is passed. Since stylesheet is loaded, `CustomLabel` style can be used on the created label by using the `SetStyleName` method of `TextLabel`:
 
 ```csharp
 Tizen.NUI.StyleManager.Get().ApplyTheme(DirectoryInfo.Resource + "/theme.json");
@@ -133,7 +133,7 @@ However, the same `pointSize` is unlikely to be suitable for all text controls i
 
 You can provide further flexibility for the various screens by mapping the logical size to a physical size in the stylesheet.
 
-### Align Text in TextLabel
+### Align text in TextLabel
 
 To align the text in a text label:
 
@@ -143,7 +143,7 @@ To align the text in a text label:
     label.MultiLine = true;
     ```
 
--   To align the text horizontally to the beginning, center, or end of the available area, set the `HorizontalAlignment` property of the `TextLabel` class with the corresponding value of the [HorizontalAlignment](https://samsung.github.io/TizenFX/latest/api/Tizen.NUI.HorizontalAlignment.html) enumeration:
+-   To align the text horizontally to the beginning, center, or end of the available area, set the `HorizontalAlignment` property of the `TextLabel` class with the corresponding value of the [HorizontalAlignment](/application/dotnet/api/TizenFX/latest/api/Tizen.NUI.HorizontalAlignment.html) enumeration:
 
     ```csharp
     label.HorizontalAlignment = HorizontalAlignment.Begin;
@@ -169,7 +169,7 @@ title.Text = "\U0001f601";      //UTF-32
 title.Text += "\ud83d\ude01";   //UTF-16
 ```
 
-### Use Decorations for TextLabel
+### Use decorations for TextLabel
 
 To use the text-decoration, set the applicable property:
 
@@ -225,6 +225,22 @@ To use the text-decoration, set the applicable property:
 
     ![Text with color underline](media/TextWithColorUnderline.png)
 
+-   To outline the text label, set the `Outline` property:
+
+    ```csharp
+    TextLabel label = new TextLabel("Text with Color Outline");
+    label.TextColor = Color.White;
+    PropertyMap outline = new PropertyMap();
+    outline.Add("color", new PropertyValue(Color.Red));
+    outline.Add("width", new PropertyValue(2.0f)); /// 2-pixel width
+    label.Outline = outline;
+    Window.Instance.Add(label);
+    ```
+
+    **Figure: Text with red outline**
+
+    ![Text with color outline](media/TextWithColorOutline.png)
+
 -   To enable text scrolling, set the `EnableAutoScroll` property to `true`:
 
     ```csharp
@@ -257,7 +273,7 @@ To use the text-decoration, set the applicable property:
     ```
     Auto-scrolling does not work with multi-line text; it is shown with the `Begin` alignment instead.
 
-### Use Markup Styling to Style TextLabel
+### Use markup styling to style TextLabel
 
 You can use markup elements to change the style of the text. Since the text controls do not process markup elements by default, you must first set the `EnableMarkup` property of the `TextLabel` class to `true`:
 
@@ -307,11 +323,11 @@ The following markup elements are currently supported:
 
 
 
-### Use Markup to represent encoded characters
+### Use markup to represent encoded characters
 
 Markup text is not allowed to contain some characters unless they are representing tags or entities such as "<", ">" or "&". To include these characters as a part of the text, you must use reserved entities such as `&lt;`, `&gt;`, or `&amp;`. The following example uses reserved entities:
 
-```
+```csharp
 TextLabel label = new TextLabel();
 label.EnableMarkup = true;
 label.Text = "&lt;&gt;"; //less-than greater-than
@@ -322,7 +338,7 @@ To represent decimal value, you can use: `&#` + `utf32_decimal_value` + `;`
 To represent hexadecimal value, you can use: `&#x` + `utf32_hexadecimal_value` + `;`
 The following example uses UTF32 entities:
 
-```
+```csharp
 TextLabel label = new TextLabel();
 label.EnableMarkup = true;
 label.Text = "&#9786; &#x263a;"; //smile-face
@@ -330,7 +346,7 @@ label.Text = "&#9786; &#x263a;"; //smile-face
 ```
 
 
-### TextLabel Properties
+### TextLabel properties
 
 For text decorations, the `TextLabel` class provides several properties. All the properties are editable and none of them are animatable:
 
@@ -364,14 +380,14 @@ For text decorations, the `TextLabel` class provides several properties. All the
 <a name="textField"></a>
 ## TextField
 
-The [TextField](https://samsung.github.io/TizenFX/latest/api/Tizen.NUI.BaseComponents.TextField.html) class provides a control that allows single line editable text field.
+The [TextField](/application/dotnet/api/TizenFX/latest/api/Tizen.NUI.BaseComponents.TextField.html) class provides a control that allows single line editable text field.
 
 **Figure: TextField**
 
 ![TextField](./media/textfield.png)
 
 
-### TextField Events
+### TextField events
 
 The following table lists the basic signals provided by the `TextField` class:
 
@@ -396,13 +412,29 @@ field.PlaceholderTextFocused = "Enter Name";
 window.Add(field);
 ```
 
-When the `TextField` is tapped, it automatically gets the keyboard focus. Key events correspond to entering the text. Additionally, the placeholder text is removed as soon as the text is entered. The text entered can be retrieved by using the `TEXT` property:
+When the `TextField` is tapped, it automatically gets the keyboard focus. Key events correspond to entering the text. Additionally, the placeholder text is removed as soon as the text is entered. The text entered can be retrieved by using the `Text` property:
 
 ```csharp
 string fieldTextString = field.Text;
 ```
 
-### Align Text in TextField
+### Use Placeholder property in TextField
+
+If you want to decorate the placeholder text in more detail, you can use `Placeholder` property:
+
+```csharp
+TextField field = new TextField();
+field.BackgroundColor = Color.White;
+PropertyMap placeholder = new PropertyMap();
+placeholder.Add("text", new PropertyValue("Placeholder TextField"));
+placeholder.Add("textFocused", new PropertyValue("Placeholder TextField Focused"));
+placeholder.Add("color", new PropertyValue(Color.CadetBlue));
+placeholder.Add("fontFamily", new PropertyValue("Serif"));
+placeholder.Add("pointSize", new PropertyValue(25.0f));
+field.Placeholder = placeholder;
+```
+
+### Align text in TextField
 
 The `TextField` class displays a single line of text that scrolls in either of the following case:
 
@@ -417,7 +449,31 @@ The following example illustrates text alignment:
 field.HorizontalAlignment = HorizontalAlignment.Begin;
 ```
 
-### Use Input Properties in TextField
+### Use HiddenInputSettings property in TextField
+
+The `TextField` class can substitute the input text using the `HiddenInputSettings` property.
+
+To set the `HiddenInputSettings` for detailed options, you can use [HiddenInputProperty](/application/dotnet/api/TizenFX/latest/api/Tizen.NUI.HiddenInputProperty.html) and [HiddenInputModeType](/application/dotnet/api/TizenFX/latest/api/Tizen.NUI.HiddenInputModeType.html).
+
+
+The following example illustrates how to use the `HiddenInputSettings` property in a `TextField`:
+
+```csharp
+TextField field = new TextField();
+field.PlaceholderText = "Input Password";
+field.BackgroundColor = Color.White;
+PropertyMap hiddenInputSettings = new PropertyMap();
+hiddenInputSettings.Add(HiddenInputProperty.Mode, new PropertyValue((int)HiddenInputModeType.ShowLastCharacter));
+hiddenInputSettings.Add(HiddenInputProperty.ShowLastCharacterDuration, new PropertyValue(500));
+hiddenInputSettings.Add(HiddenInputProperty.SubstituteCharacter, new PropertyValue(0x2A));
+field.HiddenInputSettings = hiddenInputSettings;
+```
+
+**Figure: HiddenInputSettings**
+
+![HiddenInputSettings](./media/TextFieldHiddenInputSettings.png)
+
+### Use Input properties in TextField
 
 To change the text settings for new input text, you can use the Input properties of the `TextField` class, such as `InputColor`, `InputPointSize`, and so on.
 
@@ -432,11 +488,39 @@ field.TextChanged += (obj, e) => {
 };
 ```
 
-### TextField Properties
+### Decoration of grab handle and selection handle
+
+To decorate the grab handle and selection handle, you can use the `GrabHandleImage`, `SelectionHandleImageLeft`, and `SelectionHandleImageRight` properties.
+
+Also, you can change the color of the handle using the `GrabHandleColor` property.
+
+The following example illustrates how to decorate the grab handle and selection handle in a `TextField`:
+
+```csharp
+TextField field = new TextField();
+field.Text = "TextField Selection";
+field.BackgroundColor = Color.White;
+field.GrabHandleImage = "handle_down.png"; /// Set your Image path
+field.GrabHandleColor = Color.Red;
+PropertyMap leftImage = new PropertyMap();
+leftImage.Add("filename", new PropertyValue("handle_downleft.png")); /// Set your Image path
+field.SelectionHandleImageLeft = leftImage;
+PropertyMap rightImage = new PropertyMap();
+rightImage.Add("filename", new PropertyValue("handle_downright.png")); /// Set your Image path
+field.SelectionHandleImageRight = rightImage;
+```
+
+Images of other properties can also change in the same way as in example, such as `SelectionHandlePressedImageLeft`, `SelectionHandleMarkerImageLeft`, and so on.
+
+**Figure: Decoration of SelectionHandle**
+
+![Decoration of SelectionHandle](./media/TextFieldSelection.png)
+
+### TextField properties
 
 To change the look and feel of the text and text related elements, use the `TextField` properties.
 
-### Use Decorations for TextField
+### Use decorations for TextField
 
 For text decorations, the following `TextField` class properties are available. All properties are editable and none of them are animatable:
 
@@ -500,7 +584,7 @@ For text decorations, the following `TextField` class properties are available. 
 <a name="textEditor"></a>
 ## TextEditor
 
-The [TextEditor](https://samsung.github.io/TizenFX/latest/api/Tizen.NUI.BaseComponents.TextEditor.html) class provides a control that allows multi-line text editing. It is similar to the [TextField](#textField) control, where different formatting can be applied to different parts of the text. For example, you can change the font color, font style, point size, and font family.
+The [TextEditor](/application/dotnet/api/TizenFX/latest/api/Tizen.NUI.BaseComponents.TextEditor.html) class provides a control that allows multi-line text editing. It is similar to the [TextField](#textField) control, where different formatting can be applied to different parts of the text. For example, you can change the font color, font style, point size, and font family.
 
 The `TextEditor` also supports markup, and text can be scrolled vertically within it.
 
@@ -508,7 +592,7 @@ The `TextEditor` also supports markup, and text can be scrolled vertically withi
 
 ![TextEditor](./media/dali_texteditor.png)
 
-### TextEditor Events
+### TextEditor events
 
 The following table lists the basic signals provided by the `TextEditor` class:
 
@@ -534,7 +618,7 @@ editor.Text = "This is a multiline text.\n I can write several lines.\n";
 Window.Instance.Add(editor);
 ```
 
-### TextEditor Properties
+### TextEditor properties
 
 You can modify the `TextEditor` appearance and behavior using its properties.
 
@@ -596,8 +680,8 @@ The following table lists the available `TextEditor` properties:
 | `TranslatableText`                 | String      | Specifies the `TranslatableText` property that sets the SID value. |
 
 
-## Related Information
+## Related information
 - Examples
-  - [TvTextSample](https://github.com/Samsung/Tizen-CSharp-Samples/tree/master/TV/TextSample)
+  - [TvTextSample](https://github.com/Samsung/Tizen-CSharp-Samples/tree/dev-freeze/TV/TextSample/TextSample)
 - Dependencies
   -   Tizen 4.0 and Higher
